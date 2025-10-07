@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2113.65">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: justify; line-height: 18.4px; font: 16.0px Arial; color: #3d80cf; -webkit-text-stroke: #3d80cf}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 16.0px 'Apple Color Emoji'; font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="es"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;title&gt;Recicla-Scan: Identificador de Materiales&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;!-- Incluye Tailwind CSS para estilizado rápido y moderno --&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;!-- Fuente Inter de Google Fonts --&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;style&gt;</span></p>
+<p class="p1"><span class="s1">        body {</span></p>
+<p class="p1"><span class="s1">            font-family: 'Inter', sans-serif;</span></p>
+<p class="p1"><span class="s1">            background-color: #f0fdf4; /* Verde muy claro para un tema de reciclaje */</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">        .container-app {</span></p>
+<p class="p1"><span class="s1">            max-width: 90%;</span></p>
+<p class="p1"><span class="s1">            margin: 2rem auto;</span></p>
+<p class="p1"><span class="s1">            padding: 2rem;</span></p>
+<p class="p1"><span class="s1">            background-color: #ffffff;</span></p>
+<p class="p1"><span class="s1">            border-radius: 1.5rem;</span></p>
+<p class="p1"><span class="s1">            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">        .recycle-button {</span></p>
+<p class="p1"><span class="s1">            transition: all 0.2s ease-in-out;</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">        .recycle-button:hover {</span></p>
+<p class="p1"><span class="s1">            transform: translateY(-2px);</span></p>
+<p class="p1"><span class="s1">            box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.5);</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">        #result-box {</span></p>
+<p class="p1"><span class="s1">            min-height: 5rem;</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">        /* Estilo para el spinner de carga */</span></p>
+<p class="p1"><span class="s1">        .spinner {</span></p>
+<p class="p1"><span class="s1">            border: 4px solid rgba(0, 0, 0, 0.1);</span></p>
+<p class="p1"><span class="s1">            border-top: 4px solid #10b981;</span></p>
+<p class="p1"><span class="s1">            border-radius: 50%;</span></p>
+<p class="p1"><span class="s1">            width: 30px;</span></p>
+<p class="p1"><span class="s1">            height: 30px;</span></p>
+<p class="p1"><span class="s1">            animation: spin 1s linear infinite;</span></p>
+<p class="p1"><span class="s1">            display: none;</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">        @keyframes spin {</span></p>
+<p class="p1"><span class="s1">            0% { transform: rotate(0deg); }</span></p>
+<p class="p1"><span class="s1">            100% { transform: rotate(360deg); }</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">    &lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body class="p-4 sm:p-8"&gt;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">    &lt;div class="container-app"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;header class="text-center mb-8"&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;h1 class="text-4xl font-bold text-gray-800 flex items-center justify-center"&gt;</span></p>
+<p class="p1"><span class="s1">                </span><span class="s2">♻️</span><span class="s1"> Recicla-Scan</span></p>
+<p class="p1"><span class="s1">            &lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;p class="text-lg text-gray-500 mt-2"&gt;Identifica el material y aprende a reciclarlo al instante.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;/header&gt;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        &lt;main class="space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;!-- Paso 1: Carga de Imagen / Uso de la Cámara --&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;div class="p-6 bg-gray-50 rounded-xl border border-gray-200"&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;label for="imageUpload" class="block text-xl font-semibold text-gray-700 mb-4"&gt;Paso 1: Toma una foto o sube la imagen del producto&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;!-- capture="camera" habilita el acceso directo a la cámara en móviles --&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;input type="file" id="imageUpload" accept="image/*" capture="camera" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer rounded-lg p-2 transition duration-150 ease-in-out"&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">            &lt;!-- Previsualización de Imagen --&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;div class="p-6 bg-white rounded-xl border border-gray-200 text-center" id="imagePreviewContainer"&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;p id="previewText" class="text-gray-400"&gt;La imagen subida aparecerá aquí.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;img id="uploadedImage" class="mt-4 max-h-96 w-auto mx-auto rounded-lg shadow-lg hidden" alt="Imagen cargada para escanear"&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">            &lt;!-- Paso 2: Botón de Escaneo --&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;div class="p-6 bg-gray-50 rounded-xl border border-gray-200 text-center"&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;button id="scanButton" class="recycle-button w-full sm:w-auto px-8 py-3 bg-emerald-500 text-white font-bold rounded-full text-lg shadow-lg shadow-emerald-200 hover:bg-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mx-auto" disabled&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;span id="buttonText"&gt;</span><span class="s2">🔍</span><span class="s1"> Escanear Material&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;div id="loadingSpinner" class="spinner ml-3"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">            &lt;!-- Resultado del Análisis --&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;div class="p-6 bg-white rounded-xl border-4 border-dashed border-emerald-300 shadow-inner" id="result-box"&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;h2 class="text-2xl font-bold text-gray-700 mb-3"&gt;Resultado del Análisis:&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;div id="resultContent" class="text-gray-600"&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;p&gt;Sube una imagen y presiona "Escanear Material" para obtener la clasificación.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">            &lt;!-- Mensaje de Error (Oculto inicialmente) --&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;div id="errorContainer" class="hidden p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg" role="alert"&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;p class="font-bold"&gt;Error:&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;p id="errorMessage"&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">            &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        &lt;/main&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">    &lt;!-- Módulo de JavaScript para la lógica de la aplicación --&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;script type="module"&gt;</span></p>
+<p class="p1"><span class="s1">        // --- Constantes y Variables Globales del Entorno (Requeridas por Canvas) ---</span></p>
+<p class="p1"><span class="s1">        const apiKey = "";<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;</span></p>
+<p class="p1"><span class="s1">        const MAX_IMAGE_WIDTH = 1024; // Máximo de píxeles para el lado más largo de la imagen.</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        // --- Elementos del DOM ---</span></p>
+<p class="p1"><span class="s1">        const imageUpload = document.getElementById('imageUpload');</span></p>
+<p class="p1"><span class="s1">        const uploadedImage = document.getElementById('uploadedImage');</span></p>
+<p class="p1"><span class="s1">        const previewText = document.getElementById('previewText');</span></p>
+<p class="p1"><span class="s1">        const scanButton = document.getElementById('scanButton');</span></p>
+<p class="p1"><span class="s1">        const loadingSpinner = document.getElementById('loadingSpinner');</span></p>
+<p class="p1"><span class="s1">        const buttonText = document.getElementById('buttonText');</span></p>
+<p class="p1"><span class="s1">        const resultContent = document.getElementById('resultContent');</span></p>
+<p class="p1"><span class="s1">        const errorContainer = document.getElementById('errorContainer');</span></p>
+<p class="p1"><span class="s1">        const errorMessage = document.getElementById('errorMessage');</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        let base64Image = null;</span></p>
+<p class="p1"><span class="s1">        let imageMimeType = null;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        // --- Funciones de Utilidad ---</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        /**</span></p>
+<p class="p1"><span class="s1">         * Muestra/Oculta el estado de carga (spinner y botón).</span></p>
+<p class="p1"><span class="s1">         * @param {boolean} isLoading - Si es verdadero, muestra el spinner.</span></p>
+<p class="p1"><span class="s1">         */</span></p>
+<p class="p1"><span class="s1">        function setLoading(isLoading) {</span></p>
+<p class="p1"><span class="s1">            scanButton.disabled = isLoading || !base64Image;</span></p>
+<p class="p1"><span class="s1">            if (isLoading) {</span></p>
+<p class="p1"><span class="s1">                loadingSpinner.style.display = 'block';</span></p>
+<p class="p1"><span class="s1">                buttonText.textContent = 'Analizando...';</span></p>
+<p class="p1"><span class="s1">            } else {</span></p>
+<p class="p1"><span class="s1">                loadingSpinner.style.display = 'none';</span></p>
+<p class="p1"><span class="s1">                buttonText.textContent = '</span><span class="s2">🔍</span><span class="s1"> Escanear Material';</span></p>
+<p class="p1"><span class="s1">            }</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        /**</span></p>
+<p class="p1"><span class="s1">         * Muestra un mensaje de error.</span></p>
+<p class="p1"><span class="s1">         * @param {string} message - El mensaje de error a mostrar.</span></p>
+<p class="p1"><span class="s1">         */</span></p>
+<p class="p1"><span class="s1">        function showError(message) {</span></p>
+<p class="p1"><span class="s1">            errorMessage.textContent = message;</span></p>
+<p class="p1"><span class="s1">            errorContainer.classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        /**</span></p>
+<p class="p1"><span class="s1">         * Convierte el archivo de imagen a una cadena Base64 REDIMENSIONADA.</span></p>
+<p class="p1"><span class="s1">         * Esto previene que imágenes grandes saturen la API o fallen por tiempo de espera.</span></p>
+<p class="p1"><span class="s1">         * @param {File} file - El archivo de imagen.</span></p>
+<p class="p1"><span class="s1">         * @returns {Promise&lt;string&gt;} Promesa que resuelve la cadena Base64 (sin prefijo).</span></p>
+<p class="p1"><span class="s1">         */</span></p>
+<p class="p1"><span class="s1">        function resizeImage(file) {</span></p>
+<p class="p1"><span class="s1">            return new Promise((resolve, reject) =&gt; {</span></p>
+<p class="p1"><span class="s1">                const reader = new FileReader();</span></p>
+<p class="p1"><span class="s1">                reader.onload = (event) =&gt; {</span></p>
+<p class="p1"><span class="s1">                    const img = new Image();</span></p>
+<p class="p1"><span class="s1">                    img.onload = () =&gt; {</span></p>
+<p class="p1"><span class="s1">                        let width = img.width;</span></p>
+<p class="p1"><span class="s1">                        let height = img.height;</span></p>
+<p class="p1"><span class="s1">                       <span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">                        // Determinar si se necesita redimensionar</span></p>
+<p class="p1"><span class="s1">                        if (width &gt; MAX_IMAGE_WIDTH || height &gt; MAX_IMAGE_WIDTH) {</span></p>
+<p class="p1"><span class="s1">                            if (width &gt; height) {</span></p>
+<p class="p1"><span class="s1">                                height *= MAX_IMAGE_WIDTH / width;</span></p>
+<p class="p1"><span class="s1">                                width = MAX_IMAGE_WIDTH;</span></p>
+<p class="p1"><span class="s1">                            } else {</span></p>
+<p class="p1"><span class="s1">                                width *= MAX_IMAGE_WIDTH / height;</span></p>
+<p class="p1"><span class="s1">                                height = MAX_IMAGE_WIDTH;</span></p>
+<p class="p1"><span class="s1">                            }</span></p>
+<p class="p1"><span class="s1">                        }</span></p>
+<p class="p1"><span class="s1">                       <span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">                        // Crear el canvas y dibujar la imagen redimensionada</span></p>
+<p class="p1"><span class="s1">                        const canvas = document.createElement('canvas');</span></p>
+<p class="p1"><span class="s1">                        canvas.width = width;</span></p>
+<p class="p1"><span class="s1">                        canvas.height = height;</span></p>
+<p class="p1"><span class="s1">                        const ctx = canvas.getContext('2d');</span></p>
+<p class="p1"><span class="s1">                        ctx.drawImage(img, 0, 0, width, height);</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                        // Convertir el canvas a Base64 (calidad 0.8 para compresión)</span></p>
+<p class="p1"><span class="s1">                        const resizedDataUrl = canvas.toDataURL(file.type, 0.8);</span></p>
+<p class="p1"><span class="s1">                        resolve(resizedDataUrl.split(',')[1]); // Solo la parte base64</span></p>
+<p class="p1"><span class="s1">                    };</span></p>
+<p class="p1"><span class="s1">                    img.onerror = error =&gt; reject("Error al cargar la imagen para redimensionar.");</span></p>
+<p class="p1"><span class="s1">                    img.src = event.target.result;</span></p>
+<p class="p1"><span class="s1">                };</span></p>
+<p class="p1"><span class="s1">                reader.onerror = error =&gt; reject("Error al leer el archivo.");</span></p>
+<p class="p1"><span class="s1">                reader.readAsDataURL(file);</span></p>
+<p class="p1"><span class="s1">            });</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        // --- Lógica del Evento de Carga de Imagen ---</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        imageUpload.addEventListener('change', async (event) =&gt; {</span></p>
+<p class="p1"><span class="s1">            errorContainer.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1">            const file = event.target.files[0];</span></p>
+<p class="p1"><span class="s1">            if (file) {</span></p>
+<p class="p1"><span class="s1">                try {</span></p>
+<p class="p1"><span class="s1">                    // Muestra un mensaje de procesamiento</span></p>
+<p class="p1"><span class="s1">                    resultContent.innerHTML = `</span></p>
+<p class="p1"><span class="s1">                        &lt;div class="flex items-center justify-center text-blue-600"&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;div class="spinner mr-3 !static !inline-block !border-t-blue-500"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">                            &lt;span&gt;Procesando imagen (reduciendo tamaño)...&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1">                        &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">                    `;</span></p>
+<p class="p1"><span class="s1">                    scanButton.disabled = true; // Deshabilita el botón mientras se procesa</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                    // 1. Obtener MIME Type</span></p>
+<p class="p1"><span class="s1">                    imageMimeType = file.type;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                    // 2. Redimensionar y obtener Base64</span></p>
+<p class="p1"><span class="s1">                    base64Image = await resizeImage(file);</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                    // 3. Muestra la imagen (desde el objeto blob original para previsualización)</span></p>
+<p class="p1"><span class="s1">                    const imageUrl = URL.createObjectURL(file);</span></p>
+<p class="p1"><span class="s1">                    uploadedImage.src = imageUrl;</span></p>
+<p class="p1"><span class="s1">                    uploadedImage.classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1">                    previewText.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1">                   <span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">                    scanButton.disabled = false;</span></p>
+<p class="p1"><span class="s1">                    resultContent.innerHTML = '&lt;p&gt;</span><span class="s2">✅</span><span class="s1"> Imagen procesada. Presiona "Escanear Material".&lt;/p&gt;';</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                } catch (error) {</span></p>
+<p class="p1"><span class="s1">                    showError('Error al procesar la imagen: ' + (error.message || error));</span></p>
+<p class="p1"><span class="s1">                    console.error('Error al cargar/redimensionar la imagen:', error);</span></p>
+<p class="p1"><span class="s1">                    base64Image = null;</span></p>
+<p class="p1"><span class="s1">                    scanButton.disabled = true;</span></p>
+<p class="p1"><span class="s1">                    uploadedImage.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1">                    previewText.classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1">                    resultContent.innerHTML = '&lt;p class="text-red-500"&gt;Hubo un problema al cargar la imagen.&lt;/p&gt;';</span></p>
+<p class="p1"><span class="s1">                }</span></p>
+<p class="p1"><span class="s1">            } else {</span></p>
+<p class="p1"><span class="s1">                uploadedImage.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1">                previewText.classList.remove('hidden');</span></p>
+<p class="p1"><span class="s1">                base64Image = null;</span></p>
+<p class="p1"><span class="s1">                scanButton.disabled = true;</span></p>
+<p class="p1"><span class="s1">            }</span></p>
+<p class="p1"><span class="s1">        });</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        // --- Lógica del Llamado a la API de Gemini ---</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        scanButton.addEventListener('click', async () =&gt; {</span></p>
+<p class="p1"><span class="s1">            if (!base64Image || !imageMimeType) {</span></p>
+<p class="p1"><span class="s1">                showError('Por favor, selecciona una imagen primero.');</span></p>
+<p class="p1"><span class="s1">                return;</span></p>
+<p class="p1"><span class="s1">            }</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">            setLoading(true);</span></p>
+<p class="p1"><span class="s1">            errorContainer.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1">            resultContent.innerHTML = `</span></p>
+<p class="p1"><span class="s1">                &lt;div class="flex items-center justify-center text-emerald-600"&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;div class="spinner mr-3 !static !inline-block"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">                    &lt;span&gt;La IA está analizando el material...&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1">                &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">            `;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">            // Configuración del request a la API</span></p>
+<p class="p1"><span class="s1">            const systemPrompt = "Eres un Asistente de Reciclaje. Tu tarea es analizar la imagen de un producto o residuo e identificar su material principal. Debes clasificarlo estrictamente en una de las siguientes categorías: **Lata, Cartón, Vidrio, Plástico, o Otro/Mixto**. Después de la clasificación, proporciona una recomendación concisa sobre cómo debe reciclarse ese objeto específico en un contexto general (ej. 'Enjuagar y depositar en el contenedor amarillo'). Responde solo con esta información.";</span></p>
+<p class="p1"><span class="s1">            const userQuery = "Clasifica el material principal de este objeto y dime la mejor acción de reciclaje.";</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">            const payload = {</span></p>
+<p class="p1"><span class="s1">                contents: [{</span></p>
+<p class="p1"><span class="s1">                    role: "user",</span></p>
+<p class="p1"><span class="s1">                    parts: [</span></p>
+<p class="p1"><span class="s1">                        { text: userQuery },</span></p>
+<p class="p1"><span class="s1">                        {</span></p>
+<p class="p1"><span class="s1">                            inlineData: {</span></p>
+<p class="p1"><span class="s1">                                mimeType: imageMimeType, // Usamos el MIME type original</span></p>
+<p class="p1"><span class="s1">                                data: base64Image</span></p>
+<p class="p1"><span class="s1">                            }</span></p>
+<p class="p1"><span class="s1">                        }</span></p>
+<p class="p1"><span class="s1">                    ]</span></p>
+<p class="p1"><span class="s1">                }],</span></p>
+<p class="p1"><span class="s1">                systemInstruction: {</span></p>
+<p class="p1"><span class="s1">                    parts: [{ text: systemPrompt }]</span></p>
+<p class="p1"><span class="s1">                }</span></p>
+<p class="p1"><span class="s1">            };</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">            const maxRetries = 5;</span></p>
+<p class="p1"><span class="s1">            for (let attempt = 0; attempt &lt; maxRetries; attempt++) {</span></p>
+<p class="p1"><span class="s1">                try {</span></p>
+<p class="p1"><span class="s1">                    const response = await fetch(apiUrl, {</span></p>
+<p class="p1"><span class="s1">                        method: 'POST',</span></p>
+<p class="p1"><span class="s1">                        headers: { 'Content-Type': 'application/json' },</span></p>
+<p class="p1"><span class="s1">                        body: JSON.stringify(payload)</span></p>
+<p class="p1"><span class="s1">                    });</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                    if (!response.ok) {</span></p>
+<p class="p1"><span class="s1">                        if (response.status === 429 &amp;&amp; attempt &lt; maxRetries - 1) {</span></p>
+<p class="p1"><span class="s1">                            // Implementar backoff exponencial (1s, 2s, 4s, ...)</span></p>
+<p class="p1"><span class="s1">                            const delay = Math.pow(2, attempt) * 1000;</span></p>
+<p class="p1"><span class="s1">                            await new Promise(resolve =&gt; setTimeout(resolve, delay));</span></p>
+<p class="p1"><span class="s1">                            continue; // Intentar de nuevo</span></p>
+<p class="p1"><span class="s1">                        }</span></p>
+<p class="p1"><span class="s1">                        const errorData = await response.json();</span></p>
+<p class="p1"><span class="s1">                        throw new Error(`Error en la API: ${response.status} - ${errorData.error?.message || 'Error desconocido'}`);</span></p>
+<p class="p1"><span class="s1">                    }</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                    const result = await response.json();</span></p>
+<p class="p1"><span class="s1">                    const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text;</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                    if (aiText) {</span></p>
+<p class="p1"><span class="s1">                        // Formateo de la respuesta para el usuario</span></p>
+<p class="p1"><span class="s1">                        const formattedText = aiText.replace(/(\*\*[^*]+\*\*)/g, '&lt;span class="text-emerald-700 font-bold"&gt;$1&lt;/span&gt;')</span></p>
+<p class="p1"><span class="s1">                                                    .replace(/\n/g, '&lt;br&gt;');</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                        resultContent.innerHTML = `</span></p>
+<p class="p1"><span class="s1">                            &lt;p class="text-xl leading-relaxed"&gt;${formattedText}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">                        `;</span></p>
+<p class="p1"><span class="s1">                    } else {</span></p>
+<p class="p1"><span class="s1">                        throw new Error('La respuesta de la IA estaba vacía o mal formada.');</span></p>
+<p class="p1"><span class="s1">                    }</span></p>
+<p class="p1"><span class="s1">                   <span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1">                    break; // Salir del bucle si es exitoso</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">                } catch (error) {</span></p>
+<p class="p1"><span class="s1">                    if (attempt === maxRetries - 1) {</span></p>
+<p class="p1"><span class="s1">                        showError('No se pudo completar la solicitud después de varios intentos. Puede ser un problema de red o que la imagen aún es muy compleja.');</span></p>
+<p class="p1"><span class="s1">                        resultContent.innerHTML = '&lt;p class="text-red-500"&gt;Ocurrió un error. Verifica tu conexión o intenta con otra imagen.&lt;/p&gt;';</span></p>
+<p class="p1"><span class="s1">                        console.error('Error durante el análisis:', error);</span></p>
+<p class="p1"><span class="s1">                    }</span></p>
+<p class="p1"><span class="s1">                }</span></p>
+<p class="p1"><span class="s1">            }</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">            setLoading(false);</span></p>
+<p class="p1"><span class="s1">        });</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">        async function setupFirebase() {</span></p>
+<p class="p1"><span class="s1">            try {</span></p>
+<p class="p1"><span class="s1">                // No se requiere inicialización de Firebase para esta tarea específica.</span></p>
+<p class="p1"><span class="s1">            } catch (e) {</span></p>
+<p class="p1"><span class="s1">                console.warn("Firebase no se inicializó, pero la función de escaneo de IA funcionará independientemente.");</span></p>
+<p class="p1"><span class="s1">            }</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">        setupFirebase();</span></p>
+<p class="p1"><span class="s1"> </span></p>
+<p class="p1"><span class="s1">    &lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
